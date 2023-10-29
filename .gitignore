@@ -3,4 +3,5 @@
 log/*.log
 node_modules
 temp/*.jpg
+temp/*.json
 temp/*.txt
