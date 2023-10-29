@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "lifespan-of-a-site"
+version = "0.1.0"
+description = "A tool to determine the average lifespan of a set of websites"
+authors = ["John West <john@beebe-west.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "<3.13,>=3.9"
+pandas = "^2.1.2"
+jupyter = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
