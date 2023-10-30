@@ -1,7 +1,10 @@
+import "dotenv/config";
+import { resolve } from "path";
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
 
 import Bench from "./../lib/bench.js";
+import Channel from "./../lib/channel.js";
 import { getLogger } from "./../lib/util.js";
 
 const args = yargs(hideBin(process.argv))
@@ -18,7 +21,23 @@ logger.info(`Preparing scrape of "${args.url}".`);
 
 (async () => {
 	try {
-		const bench = new Bench();
+		const fs = new Channel({
+			name: "fs",
+			details: { root: resolve("./data") },
+		});
+
+		const s3 = new Channel({
+			name: "s3",
+			details: {
+				accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+				bucketName: process.env.AWS_S3_BUCKET_NAME,
+				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+			},
+		});
+
+		const bench = new Bench({
+			channels: [fs, s3],
+		});
 		await bench.act({
 			action: "goto",
 			details: { url: args.url },
@@ -27,6 +46,6 @@ logger.info(`Preparing scrape of "${args.url}".`);
 		await bench.cleanup();
 		logger.info(`Completed scrape of "${args.url}".`);
 	} catch (error) {
-		console.log("Oh no!", error);
+		logger.error(`Oh dear: ${error}!`);
 	}
 })();

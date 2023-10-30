@@ -1,5 +1,11 @@
 .DS_Store
 .env
+data/*.jpg
+data/*.json
+data/*.txt
+data/**/*.jpg
+data/**/*.json
+data/**/*.txt
 log/*.log
 node_modules
 temp/*.jpg

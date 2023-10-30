@@ -30,6 +30,14 @@ npm install
 poetry install
 ```
 
+Finally, you'll need to fill in some environment variables.
+
+```bash
+cp sample.env .env
+```
+
+Fill them in, and you're good to go!
+
 ## Running it
 
 First, we need to get into the environment.
