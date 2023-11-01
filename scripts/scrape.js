@@ -13,6 +13,12 @@ const args = yargs(hideBin(process.argv))
 		type: "string",
 		description: "The URL of a website to scrape.",
 	})
+	.option("channels", {
+		alias: "c",
+		default: "s3",
+		type: "string",
+		description: "A comma separated list of channels to save scrapes to.",
+	})
 	.demandOption("url").argv;
 
 const logger = getLogger({ name: "scrape" });
@@ -35,9 +41,17 @@ logger.info(`Preparing scrape of "${args.url}".`);
 			},
 		});
 
-		const bench = new Bench({
-			channels: [fs, s3],
-		});
+		const valid = args.channels.split(",");
+		const channels = [];
+		for (const v of valid) {
+			if (v === "fs") {
+				channels.push(fs);
+			} else if (v === "s3") {
+				channels.push(s3);
+			}
+		}
+
+		const bench = new Bench({ channels });
 		await bench.act({
 			action: "goto",
 			details: { url: args.url },
