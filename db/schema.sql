@@ -18,7 +18,26 @@ CREATE TABLE public.scrape_results (
 	scrape_meta_id INTEGER,
 	channel_name TEXT,
 	html_location TEXT,
-	image_location TEXT,
 	metadata_location TEXT,
-	root_location TEXT
+	root_location TEXT,
+	screenshot_location TEXT,
+	thumbnail_location TEXT
+);
+
+CREATE TABLE public.spiders (
+	id SERIAL PRIMARY KEY,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	base_scrape_id INTEGER,
+	delay INTEGER,
+	ideal_length INTEGER,
+	is_local_only BOOLEAN,
+	level INTEGER,
+	url_node TEXT
+);
+
+CREATE TABLE public.scrapes_spiders (
+	id SERIAL PRIMARY KEY,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	scrape_id INTEGER,
+	spider_id INTEGER
 );

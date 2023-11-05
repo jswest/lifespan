@@ -1,5 +1,7 @@
 .DS_Store
 .env
+.svelte-kit
+build
 data/*.jpg
 data/*.json
 data/*.txt
@@ -8,6 +10,9 @@ data/**/*.json
 data/**/*.txt
 log/*.log
 node_modules
+package
 temp/*.jpg
 temp/*.json
 temp/*.txt
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

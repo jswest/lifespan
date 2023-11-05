@@ -5,7 +5,11 @@ import { hideBin } from "yargs/helpers";
 
 import Bench from "./../lib/bench.js";
 import Channel from "./../lib/channel.js";
+import Spider from "./../lib/spider.js";
 import { getLogger } from "./../lib/util.js";
+
+const userAgent =
+	"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/118.0";
 
 const args = yargs(hideBin(process.argv))
 	.option("url", {
@@ -19,11 +23,20 @@ const args = yargs(hideBin(process.argv))
 		type: "string",
 		description: "A comma separated list of channels to save scrapes to.",
 	})
+	.option("spider", {
+		alias: "s",
+		default: false,
+		type: "boolean",
+		description: "If the scraper should spider out from the main url.",
+	})
+	.option("scrapeId", {
+		alias: "scrape-id",
+		type: "integer",
+		description: "The scrape id to use, rather than making an initial scrape.",
+	})
 	.demandOption("url").argv;
 
 const logger = getLogger({ name: "scrape" });
-
-logger.info(`Preparing scrape of "${args.url}".`);
 
 (async () => {
 	try {
@@ -51,15 +64,24 @@ logger.info(`Preparing scrape of "${args.url}".`);
 			}
 		}
 
-		const bench = new Bench({ channels });
-		await bench.act({
-			action: "goto",
-			details: { url: args.url },
-			scrape: true,
-		});
-		await bench.cleanup();
-		logger.info(`Completed scrape of "${args.url}".`);
+		if (!args.spider) {
+			logger.info(`Preparing scrape of "${args.url}".`);
+			const bench = new Bench({ channels, userAgent });
+			await bench.act({
+				action: "goto",
+				details: { url: args.url },
+				scrape: true,
+			});
+			await bench.cleanup();
+			logger.info(`Completed scrape of "${args.url}".`);
+		} else {
+			logger.info(`Preparing spider of "${args.url}".`);
+			const spider = new Spider({ channels, userAgent });
+			await spider.spin({ scrapeId: args.scrapeId, url: args.url });
+			logger.info(`Completed spider of "${args.url}".`);
+		}
 	} catch (error) {
 		logger.error(`Oh dear: ${error}!`);
+		process.exit();
 	}
 })();
