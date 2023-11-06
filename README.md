@@ -46,7 +46,7 @@ First, we need to get into the environment.
 poetry shell
 ```
 
-
+## Installing dependencies on Raspberry Pi
 
 ```bash
 sudo apt install chromium-browser chromium-codecs-ffmpeg
