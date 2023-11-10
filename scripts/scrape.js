@@ -87,7 +87,7 @@ const logger = getLogger({ name: "scrape" });
 		logger.info(`Preparing spider of "${args.url}".`);
 		const spider = new Spider({
 			channels,
-			localOnly,
+			localOnly: args.localOnly,
 			userAgent,
 		});
 		await spider.spin({

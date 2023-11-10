@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.438.0",
+    "bookshelf": "^1.2.0",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.3.1",
     "knex": "^3.0.1",
