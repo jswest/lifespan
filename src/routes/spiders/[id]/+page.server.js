@@ -10,11 +10,10 @@ export async function load({ params }) {
 				.whereRaw("sc.scrape_attempt_id = scrape_attempts.id")
 				.andWhere("ss.spider_id", "=", params.id)
 		});
+		qb.orderBy('created_at', 'desc');
 	}).fetchAll({
 		withRelated: ["scrape", "scrape.assets", "scrape.scrape_spider"],
 	});
-
-	console.log(attempts.toJSON());
 
 	return {
 		attempts: attempts.toJSON(),

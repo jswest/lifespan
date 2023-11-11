@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS public.scrapes;
 DROP TABLE IF EXISTS public.scrape_assets;
 DROP TABLE IF EXISTS public.scrape_attempts;
 DROP TABLE IF EXISTS public.spiders;
-DROP TABLE IF EXISTS public.scrapes_spiders;
 DROP TABLE IF EXISTS public.tags;
 
 CREATE TABLE public.scrapes (
@@ -28,6 +27,7 @@ CREATE TABLE public.scrape_assets (
 CREATE TABLE public.scrape_attempts (
 	id SERIAL PRIMARY KEY,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	spider_id INTEGER,
 	attempted_at TIMESTAMP,
 	errors TEXT,
 	git_commit_hash TEXT,
@@ -47,13 +47,6 @@ CREATE TABLE public.spiders (
 	ideal_length INTEGER,
 	is_local_only BOOLEAN,
 	level INTEGER
-);
-
-CREATE TABLE public.scrapes_spiders (
-	id SERIAL PRIMARY KEY,
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	scrape_id INTEGER,
-	spider_id INTEGER
 );
 
 CREATE TABLE public.tags (
