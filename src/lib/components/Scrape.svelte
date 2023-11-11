@@ -2,8 +2,9 @@
 	import KeyValue from '$lib/components/KeyValue.svelte';
 	export let id;
 	export let attempt;
+	export let big = false;
 	export let scrape;
-	export let scrapeAttemptsCount;
+	export let scrapeAttemptsCount = false;
 	export let spider;
 
 	const asset = scrape?.assets?.find((d) => d.channel_name === 's3');
@@ -25,7 +26,7 @@
 
 </script>
 
-<div class="Scrape {!scrape.id ? 'failed' : ''}">
+<div class="Scrape {!scrape.id ? 'failed' : ''} {big ? 'big' : ''}">
 	<div class="bg">
 		{#if scrape.id}
 			<a href="/{spider ? 'spiders' : 'scrapes'}/{spider ? id : scrape.id}">
@@ -53,9 +54,16 @@
 	position: relative;
 	width: 320px;
 }
+.Scrape.big {
+	height: calc((320px * 2) + (var(--unit) * 2));
+	width: calc((320px * 2) + (var(--unit) * 2));
+}
 .Scrape.failed {
 	background-color: #ffdddd;
 	border: 1px solid red;
+}
+.Scrape.big .bg {
+	height: calc((200px * 2) + (var(--unit) * 2 * 0.625));
 }
 .bg {
 	border-bottom: 1px solid black;
@@ -69,6 +77,9 @@
 .bg img {
 	height: 100%;
 	width: 100%;
+}
+.Scrape.big .guts {
+	top: calc((200px * 2) + (var(--unit) * 2 * 0.625));
 }
 .guts {
 	background-color: white;
