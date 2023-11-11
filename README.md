@@ -38,18 +38,34 @@ cp sample.env .env
 
 Fill them in, and you're good to go!
 
+You'll need a PostgreSQL server somewhere, and for that, you're on your own.
+
+### Installing dependencies on Raspberry Pi
+
+If you're running this off a Raspberry Pi, you'll need to install some dependencies.
+
+```bash
+sudo apt install chromium-browser chromium-codecs-ffmpeg
+sudo apt-get install ca-certificates fonts-liberation libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
+```
+
 ## Running it
 
 First, we need to get into the environment.
 
 ```bash
 poetry shell
+nvm use 20
 ```
 
-## Installing dependencies on Raspberry Pi
+Now, we can run the `scrape.js` script.
 
 ```bash
-sudo apt install chromium-browser chromium-codecs-ffmpeg
-sudo apt-get install ca-certificates fonts-liberation libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
+node scripts/scrape.js --spider --url="https://en.wikipedia.org"
 ```
+
+The `--spider` flag tells the app to spider out by one level from the base URL. If you remove it, _Lifespan_ will simply run a single-page scrape of the URL.
+
+
+
 
