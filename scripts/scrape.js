@@ -39,11 +39,11 @@ const args = yargs(hideBin(process.argv))
 		type: "integer",
 		description: "The scrape id to use, rather than making an initial scrape.",
 	})
-	.option("localOnly", {
-		alias: "local-only",
-		type: "boolean",
-		default: false,
-		description: "If a spider should restrict itself to the node hostname.",
+	.option("universe", {
+		alias: "v",
+		type: "string",
+		default: "both",
+		description: "Takes 'both', 'remote', or 'local', and restricts to that universe of links.",
 	})
 	.demandOption("url").argv;
 
@@ -88,7 +88,7 @@ const logger = getLogger({ name: "scrape" });
 		logger.info(`Preparing spider of "${args.url}".`);
 		const spider = new Spider({
 			channels,
-			localOnly: args.localOnly,
+			universe: args.universe,
 			userAgent,
 		});
 		await spider.spin({

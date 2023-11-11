@@ -45,8 +45,8 @@ CREATE TABLE public.spiders (
 	base_url TEXT,
 	delay INTEGER,
 	ideal_length INTEGER,
-	is_local_only BOOLEAN,
-	level INTEGER
+	level INTEGER,
+	universe TEXT
 );
 
 CREATE TABLE public.tags (
