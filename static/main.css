@@ -1,6 +1,7 @@
 :root {
 	--unit: 18px;
 	--font: "Cormorant Garamond";
+	--font-sans: "Helvetica Neue";
 	--color-primary: #ecefff;
 	--color-secondary: #868aaa;
 }

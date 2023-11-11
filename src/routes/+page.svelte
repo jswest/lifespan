@@ -28,7 +28,7 @@
 		box-sizing: border-box;
 		margin: 0 auto;
 		max-width: 1000px;
-		padding: var(--unit);
+		padding: calc(var(--unit) * 3) var(--unit) var(--unit) var(--unit);
 		width: 100%;
 	}
 	h1 {

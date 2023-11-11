@@ -10,6 +10,8 @@
 			return parts.slice(0, last).join(' ') + ' ' + `<span class="small">${parts[last].toLowerCase()}</span>`;
 		} else if (typeof value === 'number') {
 			return value.toLocaleString('en');
+		} else if (typeof value === 'string' && value.slice(0, 4) === 'http') {
+			return `<a href="${value}" target="_new">${value}</a>`;
 		} else {
 			return value;
 		}
@@ -28,7 +30,7 @@
 	.key {
 		border-bottom: 1px dotted var(--color-secondary);
 		color: var(--color-secondary);
-		font-family: "Helvetica Neue";
+		font-family: var(--font-sans);
 		font-size: calc(var(--unit) * 0.5);
 		letter-spacing: calc(var(--unit) * 0.5 * 0.1);
 		text-transform: uppercase;
