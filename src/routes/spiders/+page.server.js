@@ -4,6 +4,7 @@ import { db } from "./../../db/db.js";
 export async function load() {
 	const spiders = await Spider.fetchAll({
 		withRelated: [
+			"attempts",
 			"base_scrape",
 			"base_scrape.attempt",
 			{
@@ -11,7 +12,6 @@ export async function load() {
 					qb.where("channel_name", "s3");
 				},
 			},
-			"scrapes_spiders",
 		],
 	});
 

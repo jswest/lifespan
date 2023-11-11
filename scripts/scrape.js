@@ -5,6 +5,7 @@ import { hideBin } from "yargs/helpers";
 
 import Bench from "./../lib/bench.js";
 import Channel from "./../lib/channel.js";
+import { shelf } from "./../src/db/db.js";
 import Spider from "./../lib/spider.js";
 import { getLogger } from "./../lib/util.js";
 
@@ -95,5 +96,13 @@ const logger = getLogger({ name: "scrape" });
 			url: args.url,
 		});
 		logger.info(`Completed spider of "${args.url}".`);
+	}
+
+	try {
+		await shelf.knex.destroy();
+		logger.info('Destroyed the knex connection.');
+	} catch (error) {
+		logger.error(`Could not destroy knex connection: ${error}!`);
+		process.exit(1);
 	}
 })();

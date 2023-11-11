@@ -1,14 +1,14 @@
 import { shelf } from "./db.js";
 import Scrape from "./scrape.js";
-import ScrapeSpider from "./scrape-spider.js";
+import Attempt from "./attempt.js";
 
 const Spider = shelf.model("Spider", {
 	tableName: "spiders",
+	attempts() {
+		return this.hasMany(Attempt);
+	},
 	base_scrape() {
 		return this.belongsTo(Scrape, 'base_scrape_id');
-	},
-	scrapes_spiders() {
-		return this.hasMany(ScrapeSpider);
 	},
 });
 

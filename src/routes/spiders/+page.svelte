@@ -15,7 +15,7 @@
 			<Scrape
 				id={spider.id}
 				scrape={spider.base_scrape}
-				scrapeAttemptsCount={spider.scrapes_spiders.length}
+				scrapeAttemptsCount={spider.attempts.length}
 				spider={true}
 			/>
 		{/if}
