@@ -3,7 +3,7 @@ import Scrape from './scrape.js';
 
 const Asset = shelf.model("Asset", {
 	tableName: "scrape_assets",
-	Scrape() {
+	scrape() {
 		return this.belongsTo(Scrape);
 	},
 });

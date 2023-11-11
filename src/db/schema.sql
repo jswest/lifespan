@@ -1,3 +1,10 @@
+DROP TABLE IF EXISTS public.scrapes;
+DROP TABLE IF EXISTS public.scrape_assets;
+DROP TABLE IF EXISTS public.scrape_attempts;
+DROP TABLE IF EXISTS public.spiders;
+DROP TABLE IF EXISTS public.scrapes_spiders;
+DROP TABLE IF EXISTS public.tags;
+
 CREATE TABLE public.scrapes (
 	id SERIAL PRIMARY KEY,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -39,7 +46,7 @@ CREATE TABLE public.spiders (
 	delay INTEGER,
 	ideal_length INTEGER,
 	is_local_only BOOLEAN,
-	level INTEGER,
+	level INTEGER
 );
 
 CREATE TABLE public.scrapes_spiders (

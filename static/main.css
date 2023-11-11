@@ -24,3 +24,7 @@ h1, h2, h3, h4, h5, p, li {
 .small {
 	font-variant: small-caps;
 }
+
+.Page {
+	padding-top: calc(var(--unit) * 3);
+}

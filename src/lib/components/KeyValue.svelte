@@ -17,7 +17,7 @@
 </script>
 
 <div class="KeyValue">
-	<p><span class="key">{key}</span>: {@html prettify(value)}</p>
+	<p><span class="key">{key.split('_').join(' ')}</span>: {@html prettify(value)}</p>
 </div>
 
 <style>

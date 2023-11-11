@@ -3,7 +3,7 @@ import Scrape from './scrape.js';
 
 const Attempt = shelf.model("Attempt", {
 	tableName: "scrape_attempts",
-	attempt() {
+	scrape() {
 		return this.hasOne(Scrape);
 	},
 });

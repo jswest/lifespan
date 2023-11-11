@@ -1,23 +1,22 @@
-import { db } from "$lib/db/db.js";
+import Attempt from "./../../../db/attempt.js";
 
 export async function load({ params }) {
-	const scrapes = await db
-		.select([
-			"sm.*",
-			"sr.html_location",
-			"sr.metadata_location",
-			"sr.root_location",
-			"sr.screenshot_location",
-			"sr.thumbnail_location",
-		])
-		.from("public.scrape_metas AS sm")
-		.leftJoin("public.scrapes_spiders AS ss", "ss.scrape_id", "sm.id")
-		.leftJoin("public.scrape_results AS sr", "sr.scrape_meta_id", "sm.id")
-		.where("sr.channel_name", "s3")
-		.where("ss.spider_id", params.id)
-		.orderBy("sm.scraped_at", "desc");
+	const attempts = await Attempt.query((qb) => {
+		qb.whereExists((sqb) => {
+			sqb
+				.select("ss.id")
+				.from("scrapes_spiders as ss")
+				.leftJoin("scrapes as sc", "sc.id", "ss.scrape_id")
+				.whereRaw("sc.scrape_attempt_id = scrape_attempts.id")
+				.andWhere("ss.spider_id", "=", params.id)
+		});
+	}).fetchAll({
+		withRelated: ["scrape", "scrape.assets", "scrape.scrape_spider"],
+	});
+
+	console.log(attempts.toJSON());
 
 	return {
-		scrapes
-	}
+		attempts: attempts.toJSON(),
+	};
 }

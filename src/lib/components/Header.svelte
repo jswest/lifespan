@@ -9,7 +9,9 @@
 		background-color: var(--color-secondary);
 		box-sizing: border-box;
 		color: var(--color-primary);
+		position: fixed;
 		width: 100vw;
+		z-index: 100;
 	}
 	.guts {
 		box-sizing: border-box;

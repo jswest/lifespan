@@ -8,7 +8,7 @@ const ScrapeSpider = shelf.model("ScrapeSpider", {
 		return this.hasOne(Scrape);
 	},
 	spider() {
-		return this.hasOne(Spider);
+		return this.belongsTo(Spider);
 	},
 });
 
